@@ -14,12 +14,19 @@
   <style>
     html { min-height: 100%; }
     body {
-      background: url(dark_geometric.png) #000;
       height: 100%;
       font-family: 'Merriweather', serif;
-      color: #bbb;
+      color: #111;
+      background: solid #f5f5f5;
     }
-    h1 { text-align: center; margin: 60px 0; }
+
+    #hero {
+      background: url(dark_geometric.png) #000;
+      color: #bbb;
+      padding: 50px 0;
+    }
+
+    h1 { text-align: center; margin-bottom: 40px; }
     p.lead {
       letter-spacing:0.8px;
       font-weight: light;
@@ -46,18 +53,23 @@
       font-size: 80%;
     }
     .jumbotron {
-      color: #000;
       text-align: center;
+      background-color: #FF530D;
+    }
+    .jumbolink, .jumbolink:hover {
+      color: #eee;
     }
   </style>
   <body>
-    <nav>
-      <h1><img src="logo.svg" alt="Trilane" class="logo"/></h1>
-    </nav>
+    <div id="hero">
+      <nav>
+        <h1><img src="logo.svg" alt="Trilane" class="logo"/></h1>
+      </nav>
 
-    <p class="lead">
-      Wir entwickeln intuitive Software, auf die Sie sich verlassen können.
-    </p>
+      <p class="lead">
+        Wir entwickeln intuitive Software, auf die Sie sich verlassen können.
+      </p>
+    </div>
 
     <div id="features" class="container">
       <div class="grid-row">
@@ -87,11 +99,11 @@
       </div>
     </div>
 
-    <a href="mailto:info@trilane.de">
+    <a href="mailto:info@trilane.de" class="jumbolink">
       <div class="jumbotron">
         Kontaktieren Sie uns!
         <br>
-        <code>info@trilane.de</code>
+        </em>0721 27664442</em> &nbsp;&nbsp;oder&nbsp;&nbsp; <code>info@trilane.de</code>
       </div>
     </a>
 
