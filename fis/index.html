@@ -23,10 +23,7 @@ layout: default
     font-weight: 300;
     color: #fff;
     opacity: 0.7;
-  }
-
-  #case-study-tti .stages span {
-    padding: 0.6em;
+    padding-bottom: 2em;
   }
 
   a.moar {
@@ -43,6 +40,11 @@ layout: default
   }
   #content{ top: 0; transition: top 0.5s; }
   #spacer{ height: 68vh; transition: height 0.5s; }
+
+  @media all and (max-height: 600px) {
+    #spacer { height: 0;}
+  }
+
 
   #content.out {
     top: -200px;
@@ -67,11 +69,9 @@ layout: default
   <a href="/case-studies/fm" class="blandlink">
     <div id="case-study-tti">
       <div class="container">
-        <div class="grid-row">
+        <div class="row">
           <div class="col-md-6 stages">
-            <i>
-              Vertrauen Sie nicht auf unser Wort, sondern <br>auf das unserer Kunden.
-            </i>
+            Vertrauen Sie nicht auf unser Wort, sondern auf das unserer Kunden.
           </div>
           <div class="col-md-2 col-md-offset-2">
             <a href="#moar" class="moar">Weiterlesen ↓</a>
@@ -129,19 +129,23 @@ layout: default
   // material
   var material = new THREE.LineBasicMaterial({
       color: 0x000000,
-      linewidth: 1
+      linewidth: 1,
+      transparent: true,
+      opacity: 0
   });
 
   // material
   var thinMaterial = new THREE.LineBasicMaterial({
       //color: 0xaaaaaa,
       color: 0x666666,
-      linewidth: 1
+      linewidth: 1,
+      transparent: true,
+      opacity: 0
   });
 
   // mesh face materials
   var materialFront = new THREE.MeshBasicMaterial( { color: 0x1B325F, transparent: true, opacity: 0.75 } );
-  var materialSide = new THREE.MeshBasicMaterial( { color: 0x3A89C9, transparent: true, opacity: 0.3 } );
+  var materialSide = new THREE.MeshBasicMaterial( { color: 0x3A89C9, transparent: true, opacity: 0 } );
   var materialArray = [ materialFront, materialSide ];
   var starMaterial = new THREE.MeshFaceMaterial(materialArray);
 
@@ -328,20 +332,21 @@ layout: default
   .addAction(0, function() {
     document.getElementById("music").play()
   })
-  .addAction(5, function() {
-    //alert("ohai")
-  })
-  .addTween(0, 14, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
+  .addTween(0, 10, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
     blackout.style.opacity = 1-k;
   })
   .addAction(14, function() {
     blackout.parentNode.removeChild(blackout)
   })
   .addAction(12, function() {
-    //alert("ohai")
     eg.position.z = - 2000
     ug.position.z = - 3500
   })
+
+  .addTween(8,4, material, {opacity: 0}, {opacity: 1}, 'linear')
+  .addTween(9,4, thinMaterial, {opacity: 0}, {opacity: 1}, 'linear')
+  .addTween(10,4, materialSide, {opacity: 0}, {opacity: 0.3}, 'linear')
+
   .addTween(10, 15, eg.position, {z:-2000}, {z:0}, 'cubicInOut')
   .addTween(10, 15, ug.position, {z:-3500}, {z:-100}, 'cubicInOut')
   //.addTween(0, 5, ug.position, {z:-800}, {z:-50}, 'cubicInOut')
@@ -350,7 +355,8 @@ layout: default
   .addTween(10, 15, lookAt, {z:lookAt.z}, {z:lookAt.z+10}, 'cubicInOut', function() {
     camera.lookAt(lookAt)
   })
-  .addTween(20,5, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
+
+  .addTween(17,5, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
 
   // fanout for the floors
   /*.addTween(25, 0.5, og2.rotation, {z: 0}, {z:Math.PI*2/30*3}, 'cubicInOut')
@@ -376,5 +382,5 @@ layout: default
 
   animate();
   director.start()
-  //director.goto(15)
+  //director.goto(30)
 </script>
