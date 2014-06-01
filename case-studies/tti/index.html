@@ -92,14 +92,14 @@ layout: default
       <div class="container">
         <div class="row">
           <div class="col-md-6 stages">
-            Vertrauen Sie nicht auf unser Wort, sondern auf das unserer Kunden.
+            Vertrauen Sie nicht unseren Worten, sondern denen unserer Kunden.
           </div>
           <div class="col-md-2 col-md-offset-2">
             <a href="#moar" class="moar">Weiterlesen ↓</a>
           </div>
         </div>
 
-        <div class="row" style="padding-bottom:2em">
+        <div id="moar" class="row" style="padding-bottom:2em">
           <div class="col-md-8">
             <blockquote>Das Team von Trilane steht nicht nur für exzellente Umsetzung, sondern darüber hinaus für kompetente
               und ehrliche Beratung. Uns ist klar: für eine Anwendung, mit der alle Seiten zufrieden sind,
@@ -107,8 +107,8 @@ layout: default
               <footer>Peter Heinke, Geschäftsführer der TTI GmbH</footer>
             </blockquote>
           </div>
-          <div class="col-md-4">
-            <img src="http://www.jemisonmetals.com/assets/Pete-Heinke3-5d92a7530113625f47bbd2e3e9b759d0.jpg" style="width:50%">
+          <div class="col-md-2">
+            <img src="http://www.jemisonmetals.com/assets/Pete-Heinke3-5d92a7530113625f47bbd2e3e9b759d0.jpg" style="width:100%">
           </div>
         </div>
       </div>
@@ -389,6 +389,7 @@ layout: default
   .addAction(0, function() {
     music.play()
     document.body.style.overflow = "hidden"
+    window.scrollTo(0,0)
   })
   .addTween(0, 10, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
     blackout.style.opacity = 1-k;
