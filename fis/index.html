@@ -12,10 +12,17 @@ layout: default
 <style>
   #case-study-tti {
     position: relative;
-    padding: 2.5em 0 10em;
+    padding: 2.5em 0 0;
     background: url(/assets/patterns/orange_tris.svg) no-repeat;
     background-size: cover;
-    background-position: 0 -300px;
+    background-position: 0 -200px;
+  }
+
+  #case-study-tti h2 {
+    font-size: 22px;
+    font-weight: 300;
+    color: #fff;
+    opacity: 0.7;
   }
 
   #case-study-tti .stages {
@@ -25,6 +32,23 @@ layout: default
     opacity: 0.7;
     padding-bottom: 2em;
   }
+
+  #case-study-tti blockquote {
+    border-color: rgba(255,255,255,0.3);
+    border-width: 3px;
+    font-style: italic;
+    font-weight: 300;
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    padding: 1em;
+  }
+
+  #case-study-tti blockquote footer {
+    color: white;
+    padding: 0.5em;
+    opacity: 0.7;
+  }
+
 
   a.moar {
     display: block;
@@ -36,7 +60,6 @@ layout: default
 
   .x {
     background-image: url(/assets/patterns/blue_tris.svg) !important;
-    background-position: 0 -200px !important;
   }
   #content{ top: 0; transition: top 0.5s; }
   #spacer{ height: 68vh; transition: height 0.5s; }
@@ -59,7 +82,9 @@ layout: default
   <div style="background: #333">
     <div class="container">
       <div style="padding: 1em 0;text-align:center">
-        <img src="/assets/logo_white.svg" alt="Trilane" class="logo" style="width:100px;"/>
+        <a href="/">
+          <img src="/assets/logo_white.svg" alt="Trilane" class="logo" style="width:100px;"/>
+        </a>
       </div>
     </div>
   </div>
@@ -77,9 +102,37 @@ layout: default
             <a href="#moar" class="moar">Weiterlesen ↓</a>
           </div>
         </div>
+
+        <div class="row" style="padding-bottom:2em">
+          <div class="col-md-8">
+            <blockquote>Das Team von Trilane steht nicht nur für exzellente Umsetzung, sondern darüber hinaus für kompetente
+              und ehrliche Beratung. Uns ist klar: für eine Anwendung, mit der alle Seiten zufrieden sind,
+              ist die von Trilane geleitete Planungsphase ebenso wichtig wie die Implementierung.
+              <footer>Peter Heinke, Geschäftsführer der TTI GmbH</footer>
+            </blockquote>
+          </div>
+          <div class="col-md-4">
+            <img src="http://www.jemisonmetals.com/assets/Pete-Heinke3-5d92a7530113625f47bbd2e3e9b759d0.jpg" style="width:50%">
+          </div>
+        </div>
       </div>
     </div>
   </a>
+
+  <div class="container" style="padding-top:1em;line-height:180%">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Das Projekt</h2>
+        <p>Die TTI GmbH ist Technologiezentrum und Gründerwerkstatt unter einem Dach vereint. In enger Zusammenarbeit mit der Universität Stuttgart
+          wird hier Absolventen und jungen Gründern das Rüstzeug für die erfolgreiche Firmengründung vermittelt.</p>
+      </div>
+      <div class="col-md-4 col-md-offset-2">
+        <h2>Der Kunde</h2>
+        <p>Die TTI GmbH ist Technologiezentrum und Gründerwerkstatt unter einem Dach. In enger Zusammenarbeit mit der Universität Stuttgart
+          wird hier Absolventen und jungen Gründern das Rüstzeug für die erfolgreiche Firmengründung vermittelt.</p>
+      </div>
+    </div>
+
 </div>
 
 <script>
@@ -368,6 +421,10 @@ layout: default
   .addTween(27, 0.5, og1.rotation, {z:Math.PI*2/30*2}, {z: 0}, 'cubicInOut')
   .addTween(27, 0.5, eg.rotation, {z:Math.PI*2/30*1}, {z: 0}, 'cubicInOut')
   .addTween(27, 0.5, ug.rotation, {z:Math.PI*2/30*0}, {z: 0}, 'cubicInOut')*/
+
+  .addTween(21,4, material, {opacity: 1}, {opacity: 0}, 'linear')
+  .addTween(21,4, thinMaterial, {opacity: 1}, {opacity: 0}, 'linear')
+
 
   .addAction(26, function() {
     rendering = false
