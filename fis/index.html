@@ -3,8 +3,9 @@ layout: default
 ---
 <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script>
 <script src="http://jabtunes.com/labs/boidsnbuildings/Director.js"></script>
-<audio autoplay=false>
-<source src="https://christiaanconover.com/wp-content/uploads/2011/05/THX-DVD.mp3">
+
+<audio id="music">
+  <source src="https://christiaanconover.com/wp-content/uploads/2011/05/THX-DVD.mp3">
 </audio>
 <div id="blackout" style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;z-index:7"></div>
 
@@ -252,7 +253,7 @@ layout: default
   scene.add(og2)
 
   // axes
-  scene.add(new THREE.AxisHelper(100));
+  //scene.add(new THREE.AxisHelper(100));
 
   // render
   function render() {
@@ -267,12 +268,23 @@ layout: default
 
 
       camera.position = new THREE.Vector3(lookAt.x, lookAt.y, 800);
-      //og2.traverse( function ( object ) { object.visible = false; } );
-      //eg.traverse( function ( object ) { object.visible = false; } );
-      //ug.traverse( function ( object ) { object.visible = false; } );
+      eg.traverse( function ( object ) { object.renderDepth = 1; } );
+      ug.traverse( function ( object ) { object.renderDepth = 1; } );
 
       camera.lookAt(lookAt);
       og1.position.z = 100
+
+
+        var planeW = 50; // pixels
+  var planeH = 50; // pixels
+  var numW = 100; // how many wide (50*50 = 2500 pixels wide)
+  var numH = 100; // how many tall (50*50 = 2500 pixels tall)
+  var gridMaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC, wireframe: true, transparent: true })
+  var plane = new THREE.Mesh( new THREE.PlaneGeometry( planeW*numW, planeH*numH, numW*2, numH*2 ), gridMaterial);
+  plane.position.z = og1.position.z - 5
+  scene.add(plane);
+
+
   // animate
 
   var running = true
@@ -314,13 +326,16 @@ layout: default
   director = new THREE.Director();
   director
   .addAction(0, function() {
-
+    document.getElementById("music").play()
   })
   .addAction(5, function() {
     //alert("ohai")
   })
   .addTween(0, 14, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
     blackout.style.opacity = 1-k;
+  })
+  .addAction(14, function() {
+    blackout.parentNode.removeChild(blackout)
   })
   .addAction(12, function() {
     //alert("ohai")
@@ -331,16 +346,13 @@ layout: default
   .addTween(10, 15, ug.position, {z:-3500}, {z:-100}, 'cubicInOut')
   //.addTween(0, 5, ug.position, {z:-800}, {z:-50}, 'cubicInOut')
   .addTween(10, 15, og2.position, {z:1000}, {z:200}, 'cubicInOut')
-  .addTween(10, 15, camera.position, {y:camera.position.y}, {y:-650,z:400}, 'cubicInOut', function() {
-    camera.lookAt(lookAt)
-  })
+  .addTween(10, 15, camera.position, {y:camera.position.y}, {y:-650,z:400}, 'cubicInOut')
   .addTween(10, 15, lookAt, {z:lookAt.z}, {z:lookAt.z+10}, 'cubicInOut', function() {
     camera.lookAt(lookAt)
   })
-  .addAction(25, function() {
-    camera.lookAt(lookAt)
-  })
+  .addTween(20,5, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
 
+  // fanout for the floors
   /*.addTween(25, 0.5, og2.rotation, {z: 0}, {z:Math.PI*2/30*3}, 'cubicInOut')
   .addTween(25, 0.5, og1.rotation, {z: 0}, {z:Math.PI*2/30*2}, 'cubicInOut')
   .addTween(25, 0.5, eg.rotation, {z: 0}, {z:Math.PI*2/30*1}, 'cubicInOut')
@@ -362,17 +374,7 @@ layout: default
     running = false
   })
 
-
-  // each square
-  var planeW = 50; // pixels
-  var planeH = 50; // pixels
-  var numW = 100; // how many wide (50*50 = 2500 pixels wide)
-  var numH = 100; // how many tall (50*50 = 2500 pixels tall)
-  var plane = new THREE.Mesh( new THREE.PlaneGeometry( planeW*numW, planeH*numH, numW*2, numH*2 ), new   THREE.MeshBasicMaterial( { color: 0xCCCCCC, wireframe: true } ) );
-  scene.add(plane);
-  plane.position.z = og1.position.z - 5
-
   animate();
   director.start()
-  //director.goto(30)
+  //director.goto(15)
 </script>
