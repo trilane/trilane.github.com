@@ -331,4 +331,4 @@ director
 
 animate();
 director.start()
-director.goto(50)
+//director.goto(50)

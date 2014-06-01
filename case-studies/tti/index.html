@@ -20,7 +20,6 @@ layout: default
   }
 
   #case-study-tti h2 {
-    font-size: 22px;
     font-weight: 300;
     color: #fff;
     opacity: 0.7;
@@ -80,6 +79,12 @@ layout: default
   #spacer.out {
     height: 200vh;
   }
+
+  .x {
+    background-image: url(/assets/patterns/blue_tris.svg) !important;
+    background-position: 0 80% !important;
+    margin: 0 !important;
+  }
 </style>
 
 
@@ -88,7 +93,7 @@ layout: default
     <div class="container">
       <div style="padding: 1em 0;text-align:center">
         <a href="/">
-          <img src="/assets/logo_white.svg" alt="Trilane" class="logo" style="width:100px;"/>
+          <img src="/assets/logo_white.svg" alt="Trilane" class="logo" style="height:8vh;"/>
         </a>
       </div>
     </div>
@@ -129,19 +134,92 @@ layout: default
     </div>
   </div>
 
-  <div class="container" style="padding-top:1em;line-height:180%">
+  <div class="container" style="padding-top:2em;padding-bottom:2em;line-height:180%">
     <div class="row">
       <div class="col-md-4">
         <h2>Das Projekt</h2>
-        <p>Die TTI GmbH ist Technologiezentrum und Gründerwerkstatt unter einem Dach vereint. In enger Zusammenarbeit mit der Universität Stuttgart
-          wird hier Absolventen und jungen Gründern das Rüstzeug für die erfolgreiche Firmengründung vermittelt.</p>
+        <p>
+          Die Technologie-Transfer-Initiative (TTI) in Stuttgart ist <strong>Technologiezentrum und Gründerwerkstatt</strong> unter einem Dach vereint. In enger Zusammenarbeit mit der Universität Stuttgart wird hier Absolventen und jungen Gründern das Rüstzeug für die erfolgreiche Firmengründung vermittelt.
+        </p>
+
+        <p>
+          Die TTI verwaltet ein Bürogebäude mit 7.500qm Bruttogrundfläche. Neben der Gründerberatung werden die dortigen Büros <strong>an junge Firmen vermietet</strong>.
+        </p>
       </div>
       <div class="col-md-8">
         <img src="http://www.tti-stuttgart.de/wp-content/uploads/2013/11/tz_2009_031.jpg" width="100%">
       </div>
     </div>
   </div>
+
+  <div style="background:linear-gradient(to left, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.7) 40%, transparent 40%), url(screenshots/01_uebersicht.png) center center no-repeat;background-size:cover;height: 1000px">
+    <div class="container" style="padding-top:2em;padding-bottom:2em;line-height:180%">
+      <div class="row">
+        <div class="col-lg-4 col-lg-offset-8">
+          <h2>Die Anwendung</h2>
+          <p>
+            Unsere Kernnforderungen waren:
+          </p>
+          <ol>
+            <li>einfache Datenerfassung und -Pflege</li>
+            <li>zeitliche Auswertung der Datenbasis</li>
+            <li>zugängliche Visualisierung der Gebäudebelegung</li>
+          </ol>
+          <p>
+            Die Rolle des FIS für uns ist die Funktion als <strong>zentrale Datenbasis</strong> und somit als Anlaufstelle für sämtliche Fragen, die unsere Mieter und unsere Raumkapazitäten betreffen.
+          </p>
+          <p>
+            Mit diese zentralen Rolle im täglichen Betrieb gehen Anforderungen an die <strong>Hochverfügbarkeit</strong> und die <strong>Effizienz</strong> der Anwendung einher.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="case-study-tti" class="x" style="padding: 6em 0">
+    <div class="container">
+      <div class="grid-row">
+        <div class="col-lg-6 stages">
+          <h3 style="margin: 0; font-size: 20px;line-height:170%;font-weight:300">Trilane senkt in Zusammenarbeit mit Unternehmen wie der TTI Kosten und Zeitaufwand —
+            durch kompetente Beratung, durchdachte Planung, und erstklassige Umsetzung.</h3>
+        </div>
+
+        <div class="col-lg-4 col-lg-offset-2">
+          <a class="blandlink" href="mailto:info@trilane.de">
+            <span class="moar" style="color: white; opacity: 0.8;padding:2em;font-size:110%">
+              Kontaktieren Sie uns!
+              <br>
+              </em>0721/27664442</em> &nbsp;&nbsp;oder&nbsp;&nbsp; <code>info@trilane.de</code>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <style>
+    #contact {
+      background: url(/assets/patterns/dark_steel.svg);
+      text-align: center;
+      padding: 4em 0;
+    }
+
+    #contact footer {
+      font-size: 80%;
+      color: #888;
+      margin-top: 15em;
+    }
+  </style>
+
+  <div id="contact">
+    <footer>
+      Copyright 2013-2014 Trilane. Impressum: Trilane, Mathystr. 11, 76133 Karlsruhe.
+    </footer>
+  </div>
+
 </div>
+
 
 <script>
   {% include tti/_data.js %}
