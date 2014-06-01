@@ -5,10 +5,14 @@ layout: default
 <script src="http://jabtunes.com/labs/boidsnbuildings/Director.js"></script>
 
 <audio id="music">
-  <source src="http://www.earslap.com/file_download/7/sound6.mp3">
+  <source src="./perfect_family.mp3">
 </audio>
 
-<div id="blackout" style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;z-index:7"></div>
+<div id="blackout" style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;z-index:7">
+  <div id="sound-indicator" style="position:absolute;top:50%;left:50%;margin-left:-20px;margin-top:-20px;font-size:40px;color:white;opacity:0">
+    <span class="glyphicon glyphicon-volume-up"></span>
+  </div>
+</div>
 
 <style>
   #case-study-tti {
@@ -145,20 +149,29 @@ layout: default
         <p>
           Die TTI verwaltet ein Bürogebäude mit 7.500qm Bruttogrundfläche. Neben der Gründerberatung werden die dortigen Büros <strong>an junge Firmen vermietet</strong>.
         </p>
+
+        <p>
+          Die Verwaltung der Räume, Mieter und Kostenstellen geschieht zurzeit von Hand in Papierform. Jede Anfrage, ob von Buchhaltung, Sekretariat oder Verwaltung, <strong>kostet Zeit und Ressourcen</strong>.
+        </p>
+
+        <p>
+          Zur Digitalisierung und Konsolidierung hat Trilane für uns das <strong>FlächenInformationsSystem (FIS)</strong> entwickelt.
+        </p>
+
       </div>
       <div class="col-md-8">
-        <img src="http://www.tti-stuttgart.de/wp-content/uploads/2013/11/tz_2009_031.jpg" width="100%">
+        <img src="http://www.tti-stuttgart.de/wp-content/uploads/2013/11/tz_2009_031.jpg" style="width:100%;border:1px solid #111">
       </div>
     </div>
   </div>
 
-  <div style="background:linear-gradient(to left, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.7) 40%, transparent 40%), url(screenshots/01_uebersicht.png) center center no-repeat;background-size:cover;height: 1000px">
+  <div style="background:linear-gradient(to left, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.7) 40%, transparent 40%), url(screenshots/01_uebersicht.png) center center no-repeat;height: 1000px">
     <div class="container" style="padding-top:2em;padding-bottom:2em;line-height:180%">
       <div class="row">
         <div class="col-lg-4 col-lg-offset-8">
           <h2>Die Anwendung</h2>
           <p>
-            Unsere Kernnforderungen waren:
+            Unsere Kernanforderungen waren:
           </p>
           <ol>
             <li>einfache Datenerfassung und -Pflege</li>
@@ -169,7 +182,7 @@ layout: default
             Die Rolle des FIS für uns ist die Funktion als <strong>zentrale Datenbasis</strong> und somit als Anlaufstelle für sämtliche Fragen, die unsere Mieter und unsere Raumkapazitäten betreffen.
           </p>
           <p>
-            Mit diese zentralen Rolle im täglichen Betrieb gehen Anforderungen an die <strong>Hochverfügbarkeit</strong> und die <strong>Effizienz</strong> der Anwendung einher.
+            Mit dieser zentralen Rolle im täglichen Betrieb gehen Anforderungen an die <strong>Hochverfügbarkeit</strong> und die <strong>Effizienz</strong> der Anwendung einher.
           </p>
         </div>
       </div>

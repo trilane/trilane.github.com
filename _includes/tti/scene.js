@@ -242,17 +242,23 @@ og2.position.z = 1000
 //camera.position.
 blackout = document.getElementById("blackout")
 music = document.getElementById("music")
+indicator = document.getElementById("sound-indicator")
+
 director = new THREE.Director();
 director
 .addAction(0, function() {
-  music.play()
   document.body.style.overflow = "hidden"
   window.scrollTo(0,0)
+  indicator.style.opacity = 0.8
 })
+.addAction(1, function() {
+  music.volume = 0.2
+  music.play()
+})
+
 // drop the curtains
-.addTween(0, 10, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
-  blackout.style.opacity = 1-k;
-})
+.addTween(1, 0.5, indicator.style, {opacity:0.8}, {opacity:0}, 'linear')
+.addTween(0, 10, blackout.style, {opacity:1}, {opacity:0}, 'cubicInOut')
 .addAction(14, function() {
   blackout.parentNode.removeChild(blackout)
 })
@@ -278,16 +284,34 @@ director
 .addTween(12, 12, og2.position, {z:1000}, {z:200}, 'cubicInOut')
 
 // and move the camera
-.addTween(11, 12, camera.position, {y:camera.position.y}, {y:-650,z:400}, 'cubicInOut')
+.addTween(11, 12, camera.position, {y:camera.position.y,x:camera.position.x}, {y:-650,z:400,x:camera.position.x+100}, 'cubicInOut')
 .addTween(11, 12, lookAt, {z:lookAt.z}, {z:lookAt.z+10}, 'cubicInOut', function() {
   camera.lookAt(lookAt)
 })
 
+.addTween(26, 1, camera.position, {x:camera.position.x+100}, {x:camera.position.x}, 'cubicInOut', function() {
+  camera.lookAt(lookAt)
+})
+
+
+.addTween(25, 0.5, og2.rotation, {z: 0}, {z:Math.PI*2/30*3}, 'cubicInOut')
+.addTween(25, 0.5, og1.rotation, {z: 0}, {z:Math.PI*2/30*2}, 'cubicInOut')
+.addTween(25, 0.5, eg.rotation, {z: 0}, {z:Math.PI*2/30*1}, 'cubicInOut')
+.addTween(25, 0.5, ug.rotation, {z: 0}, {z:Math.PI*2/30*0}, 'cubicInOut')
+
+.addTween(27, 0.5, og2.rotation, {z:Math.PI*2/30*3}, {z: 0}, 'cubicInOut')
+.addTween(27, 0.5, og1.rotation, {z:Math.PI*2/30*2}, {z: 0}, 'cubicInOut')
+.addTween(27, 0.5, eg.rotation, {z:Math.PI*2/30*1}, {z: 0}, 'cubicInOut')
+.addTween(27, 0.5, ug.rotation, {z:Math.PI*2/30*0}, {z: 0}, 'cubicInOut')
+
+
+
+
 // as we're getting away, lose the grid
-.addTween(17,4, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
+.addTween(23,4, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
 
 // fade all the wireframes to white
-.addTween(18,5, lol, {opacity: 1}, {opacity: 0}, 'linear', function(k) {
+.addTween(22,4, lol, {opacity: 1}, {opacity: 0}, 'linear', function(k) {
   var grey = ((0xff*k)|0) & 0xff
   var shade = grey << 16 | grey << 8 | grey
 
@@ -297,7 +321,7 @@ director
 })
 
 // .. and goodbye. first, stop rendering new stuff on the canvas
-.addAction(26, function() {
+.addAction(27.8, function() {
   rendering = false
 })
 
@@ -318,17 +342,8 @@ director
 })
 
 
-// fanout for the floors, might want this later?
-/*.addTween(25, 0.5, og2.rotation, {z: 0}, {z:Math.PI*2/30*3}, 'cubicInOut')
-.addTween(25, 0.5, og1.rotation, {z: 0}, {z:Math.PI*2/30*2}, 'cubicInOut')
-.addTween(25, 0.5, eg.rotation, {z: 0}, {z:Math.PI*2/30*1}, 'cubicInOut')
-.addTween(25, 0.5, ug.rotation, {z: 0}, {z:Math.PI*2/30*0}, 'cubicInOut')
-
-.addTween(27, 0.5, og2.rotation, {z:Math.PI*2/30*3}, {z: 0}, 'cubicInOut')
-.addTween(27, 0.5, og1.rotation, {z:Math.PI*2/30*2}, {z: 0}, 'cubicInOut')
-.addTween(27, 0.5, eg.rotation, {z:Math.PI*2/30*1}, {z: 0}, 'cubicInOut')
-.addTween(27, 0.5, ug.rotation, {z:Math.PI*2/30*0}, {z: 0}, 'cubicInOut')*/
-
 animate();
-director.start()
+music.onloadeddata = function() {
+  director.start()
+}
 //director.goto(50)
