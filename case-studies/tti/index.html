@@ -180,7 +180,7 @@ layout: default
       color: 0x000000,
       linewidth: 1,
       transparent: true,
-      opacity: 0
+      opacity: 1
   });
 
   var ceilingMaterial = new THREE.LineBasicMaterial({
@@ -192,8 +192,7 @@ layout: default
 
   // material
   var thinMaterial = new THREE.LineBasicMaterial({
-      //color: 0xaaaaaa,
-      color: 0x666666,
+      color: 0x000000,
       linewidth: 1,
       transparent: true,
       opacity: 0
@@ -391,36 +390,73 @@ layout: default
     document.body.style.overflow = "hidden"
     window.scrollTo(0,0)
   })
+  // drop the curtains
   .addTween(0, 10, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
     blackout.style.opacity = 1-k;
   })
   .addAction(14, function() {
     blackout.parentNode.removeChild(blackout)
   })
+
+  // move these into view only now, when they are white(fog) on white(bg)
   .addAction(12, function() {
     eg.position.z = - 2000
     ug.position.z = - 3500
   })
 
-  .addTween(0,1, material, {opacity: 0}, {opacity: 1}, 'linear')
-  .addTween(11,3, ceilingMaterial, {opacity: 0}, {opacity: 1}, 'linear')
-  .addTween(11,4, thinMaterial, {opacity: 0}, {opacity: 1}, 'linear')
-  .addTween(12,4, materialSide, {opacity: 0}, {opacity: 0.3}, 'linear')
-
+  // fade in the 2dpolygon-like front faces
   .addTween(7,5, materialFront, {opacity: 0}, {opacity: 0.75}, 'linear')
 
+  // fade in the 3d edges
+  .addTween(11,3, ceilingMaterial, {opacity: 0}, {opacity: 1}, 'linear')
+  .addTween(11,4, thinMaterial, {opacity: 0}, {opacity: 0.4}, 'linear')
+  .addTween(12,4, materialSide, {opacity: 0}, {opacity: 0.3}, 'linear')
+
+  // big reveal: it's 3d! roll in the other floors
   .addTween(12, 12, eg.position, {z:-2000}, {z:0}, 'cubicInOut')
   .addTween(12, 12, ug.position, {z:-3500}, {z:-100}, 'cubicInOut')
   //.addTween(0, 5, ug.position, {z:-800}, {z:-50}, 'cubicInOut')
   .addTween(12, 12, og2.position, {z:1000}, {z:200}, 'cubicInOut')
+
+  // and move the camera
   .addTween(11, 12, camera.position, {y:camera.position.y}, {y:-650,z:400}, 'cubicInOut')
   .addTween(11, 12, lookAt, {z:lookAt.z}, {z:lookAt.z+10}, 'cubicInOut', function() {
     camera.lookAt(lookAt)
   })
 
-  .addTween(17,5, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
+  // as we're getting away, lose the grid
+  .addTween(17,4, gridMaterial, {opacity: 1}, {opacity: 0}, 'linear')
 
-  // fanout for the floors
+  // fade all the wireframes to white
+  .addTween(18,5, lol, {opacity: 1}, {opacity: 0}, 'linear', function(k) {
+    var grey = ((0xff*k)|0) & 0xff
+    var shade = grey << 16 | grey << 8 | grey
+
+    material.color.setHex(shade)
+    ceilingMaterial.color.setHex(shade)
+    thinMaterial.color.setHex(shade)
+  })
+
+  // .. and goodbye. first, stop rendering new stuff on the canvas
+  .addAction(26, function() {
+    rendering = false
+  })
+
+  // then bring in the site content via css
+  .addAction(28, function() {
+    content.classList.remove("out")
+    spacer.classList.remove("out")
+  })
+
+  // finally, kill the animation loop (and ourselves)
+  .addAction(28.5, function() {
+    running = false
+    document.body.style.overflow = "auto"
+    music.pause()
+  })
+
+
+  // fanout for the floors, might want this later?
   /*.addTween(25, 0.5, og2.rotation, {z: 0}, {z:Math.PI*2/30*3}, 'cubicInOut')
   .addTween(25, 0.5, og1.rotation, {z: 0}, {z:Math.PI*2/30*2}, 'cubicInOut')
   .addTween(25, 0.5, eg.rotation, {z: 0}, {z:Math.PI*2/30*1}, 'cubicInOut')
@@ -430,22 +466,6 @@ layout: default
   .addTween(27, 0.5, og1.rotation, {z:Math.PI*2/30*2}, {z: 0}, 'cubicInOut')
   .addTween(27, 0.5, eg.rotation, {z:Math.PI*2/30*1}, {z: 0}, 'cubicInOut')
   .addTween(27, 0.5, ug.rotation, {z:Math.PI*2/30*0}, {z: 0}, 'cubicInOut')*/
-
-  .addTween(21,4, material, {opacity: 1}, {opacity: 0}, 'linear')
-  .addTween(21,4, thinMaterial, {opacity: 1}, {opacity: 0}, 'linear')
-
-  .addAction(26, function() {
-    rendering = false
-  })
-  .addAction(28, function() {
-    content.classList.remove("out")
-    spacer.classList.remove("out")
-  })
-  .addAction(28.5, function() {
-    running = false
-    document.body.style.overflow = "auto"
-    music.pause()
-  })
 
   animate();
   director.start()
