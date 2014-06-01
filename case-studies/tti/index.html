@@ -5,8 +5,9 @@ layout: default
 <script src="http://jabtunes.com/labs/boidsnbuildings/Director.js"></script>
 
 <audio id="music">
-  <source src="https://christiaanconover.com/wp-content/uploads/2011/05/THX-DVD.mp3">
+  <source src="http://www.earslap.com/file_download/7/sound6.mp3">
 </audio>
+
 <div id="blackout" style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;z-index:7"></div>
 
 <style>
@@ -443,16 +444,15 @@ layout: default
   })
 
   // then bring in the site content via css
-  .addAction(28, function() {
+  .addAction(29, function() {
     content.classList.remove("out")
     spacer.classList.remove("out")
   })
 
   // finally, kill the animation loop (and ourselves)
-  .addAction(28.5, function() {
+  .addAction(30, function() {
     running = false
     document.body.style.overflow = "auto"
-    music.pause()
   })
 
 
