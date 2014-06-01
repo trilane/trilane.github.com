@@ -58,16 +58,12 @@ layout: default
     color: #111;
   }
 
-  .x {
-    background-image: url(/assets/patterns/blue_tris.svg) !important;
-  }
-  #content{ top: 0; transition: top 0.5s; }
-  #spacer{ height: 68vh; transition: height 0.5s; }
+  #content { top: 0; transition: top 0.5s; }
+  #spacer { height: 68vh; transition: height 0.5s; }
 
   @media all and (max-height: 600px) {
     #spacer { height: 0;}
   }
-
 
   #content.out {
     top: -200px;
@@ -187,6 +183,13 @@ layout: default
       opacity: 0
   });
 
+  var ceilingMaterial = new THREE.LineBasicMaterial({
+      color: 0x000000,
+      linewidth: 1,
+      transparent: true,
+      opacity: 0
+  });
+
   // material
   var thinMaterial = new THREE.LineBasicMaterial({
       //color: 0xaaaaaa,
@@ -197,7 +200,7 @@ layout: default
   });
 
   // mesh face materials
-  var materialFront = new THREE.MeshBasicMaterial( { color: 0x1B325F, transparent: true, opacity: 0.75 } );
+  var materialFront = new THREE.MeshBasicMaterial( { color: 0x1B325F, transparent: true, opacity: 0 } );
   var materialSide = new THREE.MeshBasicMaterial( { color: 0x3A89C9, transparent: true, opacity: 0 } );
   var materialArray = [ materialFront, materialSide ];
   var starMaterial = new THREE.MeshFaceMaterial(materialArray);
@@ -209,7 +212,7 @@ layout: default
     // geometry
     var geometry = new THREE.Geometry();
     // line
-    var line = new THREE.Line(geometry, material);
+    var line = new THREE.Line(geometry, ceilingMaterial); // ceiling/floor are actually mixed up, but meh
     targetScene.add(line);
 
     var line = new THREE.Line(geometry, material);
@@ -384,6 +387,7 @@ layout: default
   director
   .addAction(0, function() {
     document.getElementById("music").play()
+    document.body.style.overflow = "hidden"
   })
   .addTween(0, 10, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
     blackout.style.opacity = 1-k;
@@ -396,16 +400,19 @@ layout: default
     ug.position.z = - 3500
   })
 
-  .addTween(8,4, material, {opacity: 0}, {opacity: 1}, 'linear')
-  .addTween(9,4, thinMaterial, {opacity: 0}, {opacity: 1}, 'linear')
-  .addTween(10,4, materialSide, {opacity: 0}, {opacity: 0.3}, 'linear')
+  .addTween(0,1, material, {opacity: 0}, {opacity: 1}, 'linear')
+  .addTween(11,3, ceilingMaterial, {opacity: 0}, {opacity: 1}, 'linear')
+  .addTween(11,4, thinMaterial, {opacity: 0}, {opacity: 1}, 'linear')
+  .addTween(12,4, materialSide, {opacity: 0}, {opacity: 0.3}, 'linear')
 
-  .addTween(10, 15, eg.position, {z:-2000}, {z:0}, 'cubicInOut')
-  .addTween(10, 15, ug.position, {z:-3500}, {z:-100}, 'cubicInOut')
+  .addTween(7,5, materialFront, {opacity: 0}, {opacity: 0.75}, 'linear')
+
+  .addTween(12, 12, eg.position, {z:-2000}, {z:0}, 'cubicInOut')
+  .addTween(12, 12, ug.position, {z:-3500}, {z:-100}, 'cubicInOut')
   //.addTween(0, 5, ug.position, {z:-800}, {z:-50}, 'cubicInOut')
-  .addTween(10, 15, og2.position, {z:1000}, {z:200}, 'cubicInOut')
-  .addTween(10, 15, camera.position, {y:camera.position.y}, {y:-650,z:400}, 'cubicInOut')
-  .addTween(10, 15, lookAt, {z:lookAt.z}, {z:lookAt.z+10}, 'cubicInOut', function() {
+  .addTween(12, 12, og2.position, {z:1000}, {z:200}, 'cubicInOut')
+  .addTween(11, 12, camera.position, {y:camera.position.y}, {y:-650,z:400}, 'cubicInOut')
+  .addTween(11, 12, lookAt, {z:lookAt.z}, {z:lookAt.z+10}, 'cubicInOut', function() {
     camera.lookAt(lookAt)
   })
 
@@ -425,16 +432,16 @@ layout: default
   .addTween(21,4, material, {opacity: 1}, {opacity: 0}, 'linear')
   .addTween(21,4, thinMaterial, {opacity: 1}, {opacity: 0}, 'linear')
 
-
   .addAction(26, function() {
     rendering = false
   })
-  .addAction(26.5, function() {
+  .addAction(28, function() {
     content.classList.remove("out")
     spacer.classList.remove("out")
   })
-  .addAction(27, function() {
+  .addAction(28.5, function() {
     running = false
+    document.body.style.overflow = "auto"
   })
 
   animate();
