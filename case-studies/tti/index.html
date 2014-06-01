@@ -15,7 +15,7 @@ layout: default
     padding: 2.5em 0 0;
     background: url(/assets/patterns/orange_tris.svg) no-repeat;
     background-size: cover;
-    background-position: 0 -200px;
+    background-position: 0 -350px;
   }
 
   #case-study-tti h2 {
@@ -383,10 +383,11 @@ layout: default
   og2.position.z = 1000
   //camera.position.
   blackout = document.getElementById("blackout")
+  music = document.getElementById("music")
   director = new THREE.Director();
   director
   .addAction(0, function() {
-    document.getElementById("music").play()
+    music.play()
     document.body.style.overflow = "hidden"
   })
   .addTween(0, 10, lol, {z:-2000}, {z:0}, 'cubicInOut', function(k) {
@@ -442,6 +443,7 @@ layout: default
   .addAction(28.5, function() {
     running = false
     document.body.style.overflow = "auto"
+    music.pause()
   })
 
   animate();
