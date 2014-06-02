@@ -345,5 +345,5 @@ director
 animate();
 music.onloadeddata = function() {
   director.start()
+  //director.goto(50)
 }
-//director.goto(50)
