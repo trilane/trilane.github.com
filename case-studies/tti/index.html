@@ -1,8 +1,6 @@
 ---
 layout: default
 ---
-<script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script>
-
 <audio id="music">
   <source src="./perfect_family.mp3">
 </audio>
@@ -14,6 +12,16 @@ layout: default
 </div>
 
 <style>
+  #blackout, #play {
+    transition: opacity 1s;
+  }
+  #blackout.revealed {
+    opacity: 0;
+  }
+  #play.revealed {
+    opacity: 1 !important;
+  }
+
   #case-study-tti {
     position: relative;
     padding: 2.5em 0 0;
@@ -102,7 +110,9 @@ layout: default
     </div>
   </div>
 
-  <div id="spacer" class="out">&nbsp;</div>
+  <div id="spacer" class="out" style="cursor: pointer" onclick="play()" style="position:relative">
+    <div id="play" style="position:absolute;top:20vh;width:100%;opacity:0"><img src="play.svg" style="height:25vh; margin:auto;display:block;margin-top:15vh;margin-bottom:0;opacity:0.8"></div>
+  </div>
 
 
   <div id="case-study-tti">
@@ -246,6 +256,9 @@ layout: default
 
 
 <script>
+  {% include tti/three.min.js %}
+  {% include tti/director.js %}
+
   {% include tti/_data.js %}
   {% include tti/scene.js %}
 </script>
