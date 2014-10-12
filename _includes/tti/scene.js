@@ -355,7 +355,8 @@ function go() {
     director.start()
   } else {
     director.start()
-    director.goto(26)
+    director.goto(27.5)
+    render()
     music.pause()
   }
 }
